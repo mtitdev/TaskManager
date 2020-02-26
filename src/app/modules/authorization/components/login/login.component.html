@@ -1,0 +1,23 @@
+<div class="content-container">
+  <form class="custom-form" [formGroup]="loginForm">
+    <mat-form-field>
+      <input matInput placeholder="Login" formControlName="login">
+      <mat-error *ngIf="loginForm.controls['login'].hasError('required')">
+        Login is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+    <a mat-button color="primary" routerLink="/sign-up">Sign Up</a>
+  </form>
+</div>

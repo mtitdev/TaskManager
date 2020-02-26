@@ -1,0 +1,31 @@
+<h1 *ngIf="!isEdit" mat-dialog-title>Add Task</h1>
+<h1 *ngIf="isEdit" mat-dialog-title>Edit Task</h1>
+<form mat-dialog-content [formGroup]="taskForm">
+  <mat-form-field *ngIf="!isEdit">
+    <input matInput placeholder="New Task" formControlName="text">
+    <mat-error *ngIf="taskForm.controls['text'].hasError('required')">
+      Task is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isEdit">
+    <input matInput placeholder="Edit" formControlName="text">
+    <mat-error *ngIf="taskForm.controls['text'].hasError('required')">
+      Task is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="plannedDate" [disabled]="isDisabled">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="taskForm.controls['plannedDate'].hasError('required')">
+      Date is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button *ngIf="!isEdit" mat-button cdkFocusInitial (click)="addTask()">Add</button>
+  <button *ngIf="isEdit" mat-button cdkFocusInitial (click)="editTask()">Edit</button>
+</div>
